@@ -1,0 +1,486 @@
+/* --- 基礎優化 --- */
+:root {
+    --primary: #2563eb;
+    --secondary: #0ea5e9;
+    --dark: #1e293b;
+    --light-bg: #f8fafc;
+    --white: #ffffff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 提高基礎字體大小 */
+html {
+    font-size: 18px; 
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--dark);
+    line-height: 1.8;
+    background-color: #f0f7ff; /* 淡淡的科技藍底色 */
+    
+    /* 強化藍色網格：結合粗細兩種線條 */
+    background-image: 
+        linear-gradient(rgba(7, 77, 229, 0.1) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(31, 79, 182, 0.1) 2px, transparent 2px),
+        linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    /* 讓網格動起來 */
+    animation: grid-move 5s linear infinite;
+}
+@keyframes grid-move {
+    from { background-position: 0 0; }
+    to { background-position: 100px 100px; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: radial-gradient(circle, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+    animation: particles-float 10s ease-in-out infinite alternate;
+}
+
+@keyframes particles-float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+.hero-banner {
+    height: 85vh; /* 佔據螢幕高度的 85% */
+    width: 100%;
+    margin-top: 0px; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                      url('images/Banner.jpg'); 
+    
+    background-size: cover;       /* 圖片自動填滿不變形 */
+    background-position: center;  /* 圖片居中 */
+    background-attachment: fixed; /* 視差滾動效果：滾動網頁時圖片會固定不動 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    /* 建立漸層色文字 */
+    background: linear-gradient(to right, #dfec25, #65ed53, #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* 動畫效果 */
+    animation: shine 1.5s linear infinite;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+.hero-tag {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    color: #00d4ff;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+}
+p {
+    font-size: 1.1rem; 
+}
+.hero-desc {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* --- 按鈕設計 --- */
+.btn {
+    display: inline-block;
+    padding: 20px 45px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    margin-right: 20px;
+}
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(37,99,235,0.4); }
+
+.btn-outline { border: 2px solid white; color: white; }
+.btn-outline:hover { background: white; color: black; }
+
+/* --- 內容區塊標題 --- */
+.section { padding: 100px 0; }
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #1e3a8a; /* 深藍色標題 */
+}
+.about-content p {
+    font-size: 1.4rem; /* 較大介紹字體 */
+    color: #475569;
+}
+
+/* --- 資訊卡片 --- */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.info-card {
+    background: var(--light-bg);
+    padding: 60px 40px;
+    border-radius: 30px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.info-card:hover, .highlight-card:hover, .project-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    border: 2px solid #93b7f1; /* 懸浮時出現藍色邊框 */
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2); /* 藍色投影 */
+    background-color: #c3c3dc;
+}
+
+
+/* --- 下載專區樣式 --- */
+.download-section {
+    background-color: #1a2533; 
+    color: #ffffff;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.download-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.download-desc {
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+    opacity: 0.9;
+}
+
+/* 按鈕容器：讓按鈕並排且置中 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* 按鈕之間的間距 */
+    flex-wrap: wrap; /* 在小螢幕上自動換行 */
+}
+
+/* --- 按鈕通用樣式 --- */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 40px;
+    border-radius: 50px; /* 圓角設計 */
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease; /* 平滑過渡效果 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* 添加陰影增加立體感 */
+}
+
+/* 圖示與文字的間距 */
+.download-btn i {
+    margin-right: 12px;
+    font-size: 1.3rem;
+}
+/* --- 精美表格樣式 --- */
+.tables-section {
+    background-color: #f8fafc; /* 淺灰色背景，讓表格更跳脫 */
+}
+
+.table-container {
+    margin-bottom: 80px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.3rem; /* 大字體 */
+    font-family: 'Noto Sans TC', sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden; /* 確保圓角效果 */
+    background-color: #ffffff;
+}
+
+.styled-table thead tr {
+    background-color: var(--primary); /* 使用你的主色調藍色 */
+    color: #ffffff;
+    text-align: center;
+    font-weight: 900;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 25px 30px; 
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+/* 偶數列換色，增加閱讀性 */
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* 最後一列底線加粗 */
+.styled-table tbody tr:last-of-type {
+    border-bottom: 3px solid var(--primary);
+}
+
+/* 滑鼠移過時的效果 */
+.styled-table tbody tr:hover {
+    background-color: #eff6ff;
+    cursor: default;
+}
+
+/* 流程表的時間列樣式 */
+.time-col {
+    font-weight: 700;
+    color: var(--primary);
+    background: #f1f5f9;
+}
+
+/* PDF 按鈕 - 經典紅色 */
+.btn-pdf {
+    background-color: #e74c3c;
+}
+
+/* Word 按鈕 - 專業藍色 */
+.btn-word {
+    background-color: #3498db;
+}
+
+/* --- 滑鼠懸停互動效果 --- */
+.download-btn:hover {
+    transform: translateY(-5px); /* 輕微向上浮動 */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3); /* 陰影加深 */
+}
+
+.btn-pdf:hover {
+    background-color: #c0392b; /* 紅色變深 */
+}
+
+.btn-word:hover {
+    background-color: #2980b9; /* 藍色變深 */
+}
+
+/* --- 頁尾 --- */
+.site-footer {
+    padding: 50px 0;
+    text-align: center;
+    background: #f1f5f9;
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+/* --- 活動亮點區塊樣式 --- */
+.highlights-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.highlight-card {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateX(15px); /* 懸浮時往右滑動，增加動態感 */
+    box-shadow: 0 15px 40px rgba(9, 80, 233, 0.1);
+}
+
+.highlight-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    width: 120px;
+    height: 120px;
+    background: #eff6ff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+    flex-shrink: 0;
+}
+
+/* 特別亮點圖示顏色 (如 Canva Pro) */
+.highlight-special {
+    color: #f4a004; /* 金色 */
+    background: #fffbeb;
+}
+
+.highlight-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.highlight-text p {
+    font-size: 1.1rem;
+    color: #90a4c1;
+    line-height: 1.6;
+}
+
+.highlight-text strong {
+    color: #ef4444; /* 獎金字體加紅標註 */
+    font-size: 1.4rem;
+}
+
+/* --- 系列活動專區樣式 --- */
+.events-container {
+    background-color: #ffffff;
+    padding-top:80px;
+}
+
+.events-grid {
+    display: grid;
+    /* 兩欄排版 */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px; /* 加大間距，看起來更高級 */
+    margin-top: 40px;
+}
+
+.event-item {
+    text-align: center;
+}
+
+/* 圖片容器設計 */
+.event-image-wrapper {
+    width: 100%;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.event-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 確保圖片不變形且填滿容器 */
+    transition: transform 0.5s ease;
+}
+
+.event-item:hover img {
+    transform: scale(1.1); /* 懸浮時圖片微放大的動態效果 */
+}
+
+/* 標題與內文大字體 */
+.event-item h3 {
+    font-size: 2rem;
+    color: var(--dark);
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+.event-item p {
+    font-size: 1.25rem;
+    color: #525f73;
+    line-height: 1.8;
+    text-align: justify; /* 讓段落文字左右對齊，看起來更整齊 */
+    padding: 0 10px;
+}
+
+/* 響應式：手機版改為上下堆疊 */
+@media (max-width: 900px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+        gap: 80px;
+    }
+    .event-image-wrapper {
+        height: 250px;
+    }
+}
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.faq-item {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    border-left: 8px solid var(--primary); /* 側邊粗線增加設計感 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.faq-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.faq-item p {
+    font-size: 1.15rem;
+    color: #95accc;
+}
+.footer-social {
+    margin-bottom: 20px;
+}
+.footer-social a {
+    font-size: 2rem;
+    color: #869dbe;
+    margin: 0 15px;
+    transition: 0.3s;
+}
+.footer-social a:hover {
+    color: var(--primary);
+}
+/* 建立一個背景裝飾層 */
+body::before, body::after {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(80px); /* 讓色塊有發光的暈染感 */
+    z-index: -1; /* 確保在文字下方 */
+    opacity: 0.15; /* 透明度適中 */
+    pointer-events: none;
+}
